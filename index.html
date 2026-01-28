@@ -88,8 +88,53 @@
       border: 1px solid transparent;
       color: var(--muted);
       font-size: 14px;
+      white-space: nowrap;
     }
     nav a:hover{
+      background: rgba(255,255,255,.7);
+      border-color: var(--line);
+      color: var(--sage-dark);
+      text-decoration: none;
+    }
+
+    /* Mobile nav toggle */
+    .nav-actions{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-toggle{
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      color: var(--sage-dark);
+      cursor: pointer;
+    }
+    .nav-toggle:focus{
+      outline: none;
+      border-color: rgba(63,107,87,.45);
+      box-shadow: 0 0 0 4px rgba(94,127,106,.18);
+    }
+    .mobile-menu{
+      display: none;
+      border-top: 1px solid var(--line);
+      background: rgba(246,242,233,.9);
+      padding: 10px 18px 14px;
+    }
+    .mobile-menu a{
+      display: block;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .mobile-menu a:hover{
       background: rgba(255,255,255,.7);
       border-color: var(--line);
       color: var(--sage-dark);
@@ -161,6 +206,7 @@
       color: var(--sage-dark);
       font-weight: 650;
       letter-spacing: .2px;
+      cursor: pointer;
     }
     .btn:hover{
       text-decoration: none;
@@ -367,6 +413,42 @@
       gap: 18px;
     }
 
+    /* Cookie notice */
+    .cookie-notice{
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 50;
+      display: none;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(30,42,36,.14);
+      padding: 14px 14px;
+      backdrop-filter: blur(10px);
+    }
+    .cookie-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .cookie-notice p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.4;
+    }
+    .cookie-actions{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     /* Responsive */
     @media (max-width: 920px){
       .hero-grid{ grid-template-columns: 1fr; }
@@ -374,8 +456,11 @@
     }
     @media (max-width: 720px){
       nav ul{ display:none; }
+      .nav-toggle{ display: inline-flex; }
       .grid-2{ grid-template-columns: 1fr; }
       .form-row{ grid-template-columns: 1fr; }
+      .cookie-inner{ grid-template-columns: 1fr; }
+      .cookie-actions{ justify-content: flex-start; }
     }
   </style>
 </head>
@@ -387,22 +472,36 @@
         <img src="assets/logo.png" alt="ADHD Anywhere UK logo" />
         <div>
           <b>ADHD Anywhere UK</b>
-          <small>Remote Adult ADHD Assessments • UK-wide</small>
+          <small>Remote Adult ADHD Assessments - UK-wide</small>
         </div>
       </div>
 
       <nav aria-label="Primary">
         <ul>
           <li><a href="#about">Overview</a></li>
-          <li><a href="#adhd">ADHD</a></li>
-          <li><a href="#process">Process</a></li>
+          <li><a href="#adhd">What is ADHD?</a></li>
+          <li><a href="#process">Assessment Process</a></li>
           <li><a href="#clinicians">Clinicians</a></li>
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
 
-      <a class="btn primary" href="#contact">Free consultation</a>
+      <div class="nav-actions">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          ☰
+        </button>
+        <a class="btn primary" href="#contact">Free consultation</a>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about">Overview</a>
+      <a href="#adhd">What is ADHD?</a>
+      <a href="#process">Assessment Process</a>
+      <a href="#clinicians">Clinicians</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
     </div>
   </header>
 
@@ -411,16 +510,16 @@
     <section class="hero" id="top">
       <div class="hero-grid">
         <div class="panel">
-          <div class="kicker"><span></span> Evidence-based • HCPC-registered • Remote</div>
+          <div class="kicker"><span></span> Evidence-based - HCPC-registered - Remote</div>
           <h1>Accessible and Affordable Adult ADHD Assessments</h1>
           <p class="lead">
-            Professional, evidence-based ADHD assessments for adults delivered remotely by experienced clinical psychologists —
-            from the comfort of your home.
+            Professional, evidence-based ADHD assessments for adults delivered remotely by experienced clinical psychologists - from the comfort of your home.
           </p>
 
           <p class="lead">
             If difficulties with focus, organisation, or impulsivity are affecting your life, a professional ADHD assessment can provide clarity.
-            We provide thorough, supportive assessments that highlight both challenges and strengths, with personalised recommendations.
+            Our HCPC-registered clinical psychologists deliver thorough, evidence-based assessments that highlight both your challenges and your unique strengths,
+            giving you personalised feedback and recommendations to help you thrive.
           </p>
 
           <div class="cta-row">
@@ -436,7 +535,7 @@
         <div class="hero-side">
           <div class="mini">
             <h3>Remote &amp; secure</h3>
-            <p>All appointments are held via secure telehealth — no travel, UK-wide access.</p>
+            <p>All appointments are held via secure telehealth - no travel, UK-wide access.</p>
             <div class="taglist">
               <span class="tag">Telehealth</span>
               <span class="tag">Confidential</span>
@@ -459,7 +558,7 @@
             <p><b>£800</b> for a comprehensive adult ADHD assessment.</p>
             <div class="taglist">
               <span class="tag">Transparent</span>
-              <span class="tag">Affordable</span>
+              <span class="tag">Accessible</span>
               <span class="tag">UK recognised</span>
             </div>
           </div>
@@ -500,7 +599,8 @@
       </div>
       <p class="sub">
         Attention-Deficit/Hyperactivity Disorder (ADHD) is a neurodevelopmental condition that affects how the brain manages attention, focus, and impulses.
-        It can influence everyday life at work, in relationships, and personal wellbeing. Many people only discover ADHD as adults.
+        It can influence everyday life, at work, school, in relationships, and with personal well-being. While ADHD is often diagnosed in childhood,
+        many people only discover it as adults.
       </p>
 
       <div class="grid-3">
@@ -510,7 +610,7 @@
             <li>Difficulty sustaining focus</li>
             <li>Disorganisation and forgetfulness</li>
             <li>Starting tasks but struggling to finish</li>
-            <li>Distracted by external events or thoughts</li>
+            <li>Easily distracted by things around you or by your own thoughts</li>
           </ul>
         </div>
         <div class="card">
@@ -541,12 +641,41 @@
           <p><b>Combined type:</b> mix of inattention and hyperactivity/impulsivity.</p>
         </div>
         <div class="card">
-          <h3>Strengths &amp; support</h3>
+          <h3>Living with ADHD</h3>
           <p>
-            ADHD can bring challenges and strengths (creativity, energy, problem-solving). Support may include psychoeducation,
-            therapy, practical strategies, coaching-informed approaches, and collaboration with medical professionals when appropriate.
+            ADHD can influence many areas of everyday life, including work or study, relationships, time management, organisation, and emotional well-being.
+            For some people, tasks that others find straightforward can feel overwhelming or exhausting without the right support.
+            At the same time, many people with ADHD also show strengths such as creativity, energy, problem-solving, and the ability to think differently.
           </p>
         </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>Diagnosis and Support</h3>
+        <p class="fine" style="margin-bottom:10px;">
+          An ADHD diagnosis is made through a comprehensive psychological assessment that explores:
+        </p>
+        <ul class="list">
+          <li>Current experiences and day-to-day difficulties</li>
+          <li>Developmental history and behavioural patterns</li>
+          <li>The impact of these differences on work, education, relationships, and wellbeing</li>
+        </ul>
+
+        <p class="fine" style="margin-top:14px; margin-bottom:10px;">
+          Support is individualised and may include:
+        </p>
+        <ul class="list">
+          <li>Psychoeducation to develop a clearer understanding of ADHD and your neurotype</li>
+          <li>Psychological therapy to explore emotional wellbeing, identity, and past experiences</li>
+          <li>Practical strategies for organisation, attention, and emotional regulation</li>
+          <li>Coaching-informed approaches to support goals, routines, and daily functioning</li>
+          <li>Collaboration with medical professionals regarding medication, where appropriate</li>
+        </ul>
+
+        <p class="fine" style="margin-top:14px;">
+          The overall aim is to support people to work with their neurotype, rather than against it, and to build confidence, self-compassion,
+          and sustainable ways of living well.
+        </p>
       </div>
     </section>
 
@@ -581,7 +710,9 @@
 
       <p class="sub">
         Led by two doctoral-level clinical psychologists with over 10 years’ experience supporting mental health and wellbeing,
-        with specialist training in ADHD assessment and diagnosis. Both are HCPC-registered.
+        with specialist training in ADHD assessment and diagnosis.
+        Both psychologists are fully registered with the Health and Care Professions Council (HCPC), the official regulator for practitioner psychologists in the UK,
+        ensuring the highest professional and ethical standards.
       </p>
 
       <div class="grid-2">
@@ -590,7 +721,7 @@
             <img class="avatar" src="assets/chloe.jpg" alt="Photo of Dr Chloe McDaid" />
             <div>
               <h3 style="margin:0;">Dr Chloe McDaid</h3>
-              <p style="margin:6px 0 0; color:var(--muted);">Clinical Psychologist • HCPC Registered</p>
+              <p style="margin:6px 0 0; color:var(--muted);">Clinical Psychologist - HCPC Registered</p>
 
               <!-- Replace the link below with Chloe's specific HCPC register entry -->
               <a class="hcpc" href="https://www.hcpc-uk.org/check-the-register/" target="_blank" rel="noopener noreferrer">
@@ -606,7 +737,7 @@
             <img class="avatar" src="assets/mehrnaz.jpg" alt="Photo of Dr Mehrnaz Vazirian Zadeh" />
             <div>
               <h3 style="margin:0;">Dr Mehrnaz Vazirian Zadeh</h3>
-              <p style="margin:6px 0 0; color:var(--muted);">Clinical Psychologist • HCPC Registered</p>
+              <p style="margin:6px 0 0; color:var(--muted);">Clinical Psychologist - HCPC Registered</p>
 
               <!-- Replace the link below with Mehrnaz's specific HCPC register entry -->
               <a class="hcpc" href="https://www.hcpc-uk.org/check-the-register/" target="_blank" rel="noopener noreferrer">
@@ -619,7 +750,7 @@
       </div>
 
       <p class="fine" style="margin-top:12px;">
-        Note: you asked the HCPC logo link should point to each individual clinician (not the company). Swap each link to their exact HCPC register URL.
+        Note: the HCPC logo link should point to each individual clinician (not the company). Swap each link to their exact HCPC register URL.
       </p>
     </section>
 
@@ -672,9 +803,12 @@
         <div class="card">
           <h3>What’s included</h3>
           <ul class="list">
-            <li>Comprehensive assessment using DIVA-5, conducted by two clinical psychologists</li>
+            <li>
+              Comprehensive assessment using DIVA-5 conducted by two clinical psychologists who are trained to assess complex mental health presentations,
+              allowing for more comprehensive and reliable ADHD diagnoses
+            </li>
             <li>Feedback session (up to 30 minutes) with outcome and recommendations</li>
-            <li>Comprehensive report aligned with national clinical guidelines</li>
+            <li>Comprehensive report aligned with national clinical guidelines, which is recognised by UK employers and universities</li>
             <li>Over 10 hours of specialist clinical psychologist time (clinical + admin)</li>
           </ul>
         </div>
@@ -704,7 +838,7 @@
 
           <hr style="border:none;border-top:1px solid var(--line);margin:16px 0;">
 
-          <h3>GDPR &amp; Privacy</h3>
+          <h3 id="privacy">GDPR &amp; Privacy</h3>
           <p class="fine">
             We handle personal information responsibly and confidentially. Information you share is used only to respond to your enquiry and provide services where appropriate.
             Please avoid sharing sensitive personal details you do not wish to send via email or forms.
@@ -724,11 +858,11 @@
             <div class="form-row">
               <div>
                 <label for="name">Full name</label><br />
-                <input id="name" name="name" type="text" autocomplete="name" />
+                <input id="name" name="name" type="text" autocomplete="name" required />
               </div>
               <div>
                 <label for="email">Email address</label><br />
-                <input id="email" name="email" type="email" autocomplete="email" />
+                <input id="email" name="email" type="email" autocomplete="email" required />
               </div>
             </div>
 
@@ -745,11 +879,11 @@
 
             <div>
               <label for="message">How can we help?</label><br />
-              <textarea id="message" name="message" rows="6"></textarea>
+              <textarea id="message" name="message" rows="6" required></textarea>
             </div>
 
-            <label style="display:flex; gap:10px; align-items:flex-start;">
-              <input type="checkbox" name="consent" value="yes" style="width:auto; margin-top:4px;" />
+            <label for="consent" style="display:flex; gap:10px; align-items:flex-start;">
+              <input id="consent" type="checkbox" name="consent" value="yes" style="width:auto; margin-top:4px;" required />
               <span class="fine">I consent to being contacted about my enquiry.</span>
             </label>
 
@@ -765,7 +899,7 @@
         <div>
           <b style="color:var(--ink);">Remote ADHD Assessments</b>
           <p class="fine" style="margin-top:8px;">
-            Conducted by Clinical Psychologists • Secure Telehealth Appointments • Confidential &amp; Professional Care
+            Conducted by Clinical Psychologists - Secure Telehealth Appointments - Confidential &amp; Professional Care
           </p>
           <p class="fine">
             Contact: <a href="mailto:info@adhdanywhere.co.uk">info@adhdanywhere.co.uk</a>
@@ -776,6 +910,9 @@
           <p class="fine" style="margin-top:0;">
             All assessments are conducted in accordance with professional and ethical guidelines.
           </p>
+          <p class="fine" style="margin-bottom:8px;">
+            <a href="#privacy">Privacy</a>
+          </p>
           <p class="fine">
             © <span id="year"></span> ADHD Anywhere UK
           </p>
@@ -784,10 +921,64 @@
     </footer>
   </main>
 
+  <!-- Simple cookie/privacy notice (non-tracking). If you add analytics/marketing cookies, use a proper consent platform. -->
+  <div class="cookie-notice" id="cookieNotice" role="dialog" aria-live="polite" aria-label="Cookie notice">
+    <div class="cookie-inner">
+      <p>
+        We use essential cookies only to help this site work properly. Read our <a href="#privacy">Privacy</a> information.
+      </p>
+      <div class="cookie-actions">
+        <button class="btn" type="button" id="cookieDismiss">OK</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Optional: auto-set year
+    // Auto-set year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    (function () {
+      const toggle = document.querySelector(".nav-toggle");
+      const menu = document.getElementById("mobileMenu");
+      if (!toggle || !menu) return;
+
+      function closeMenu() {
+        menu.style.display = "none";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+      }
+
+      toggle.addEventListener("click", function () {
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        if (isOpen) {
+          closeMenu();
+        } else {
+          menu.style.display = "block";
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.setAttribute("aria-label", "Close menu");
+        }
+      });
+
+      // Close menu when clicking a link
+      menu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+    })();
+
+    // Simple cookie notice (stores dismissal locally)
+    (function () {
+      const key = "adhdanywhere_cookie_notice_dismissed";
+      const notice = document.getElementById("cookieNotice");
+      const btn = document.getElementById("cookieDismiss");
+      if (!notice || !btn) return;
+
+      const dismissed = localStorage.getItem(key) === "yes";
+      if (!dismissed) notice.style.display = "block";
+
+      btn.addEventListener("click", function () {
+        localStorage.setItem(key, "yes");
+        notice.style.display = "none";
+      });
+    })();
   </script>
 </body>
 </html>
-
