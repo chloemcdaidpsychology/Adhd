@@ -72,14 +72,18 @@
       gap: 12px;
       min-width: 190px;
     }
-    /* Bigger logo */
+
+    /* Bigger logo + no white background box */
     .brand img{
-      width: 58px; height: 58px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.8);
-      border: 1px solid var(--line);
-      padding: 8px;
+      width: 88px;
+      height: 88px;
+      border-radius: 0;           /* remove rounded “badge” look */
+      background: transparent;    /* remove white background */
+      border: 0;                  /* remove border */
+      padding: 0;                 /* remove padding */
+      display: block;
     }
+
     /* Bigger name + remove subtitle */
     .brand b{
       display:block;
@@ -178,8 +182,6 @@
       box-shadow: var(--shadow);
       padding: 28px;
     }
-
-    /* Removed kicker badge: no styles needed */
 
     h1{
       margin: 0 0 10px;
@@ -344,17 +346,17 @@
     /* Clinicians */
     .person{
       display: grid;
-      grid-template-columns: 120px 1fr; /* Bigger face photos */
+      grid-template-columns: 150px 1fr; /* bigger photo column */
       gap: 14px;
       align-items: start;
     }
     .avatar{
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
       border-radius: 22px;
       object-fit: cover;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.9);
+      background: transparent;
     }
     .hcpc{
       display: inline-flex;
@@ -483,7 +485,7 @@
   <header>
     <div class="nav">
       <div class="brand">
-        <img src="adhd.png" alt="ADHD Anywhere UK logo" />
+        <img src="ADHDa.png" alt="ADHD Anywhere UK logo" />
         <div>
           <b>ADHD Anywhere UK</b>
         </div>
@@ -523,7 +525,6 @@
     <section class="hero" id="top">
       <div class="hero-grid">
         <div class="panel">
-          <!-- Removed: Evidence-based - HCPC-registered - Remote -->
           <h1>Accessible and Affordable Adult ADHD Assessments</h1>
           <p class="lead">
             Professional, evidence-based ADHD assessments for adults delivered remotely by experienced clinical psychologists - from the comfort of your home.
@@ -537,7 +538,7 @@
 
           <div class="cta-row">
             <a class="btn primary" href="https://calendar.app.google/mRmpPZcJVGfqHzsv8" target="_blank" rel="noopener noreferrer">Request a Free Initial Consultation</a>
-            <a class="btn" href="#process">See how it works</a>
+            <a class="btn" href="#process">See How It Works</a>
           </div>
 
           <p class="fine" style="margin-top:14px;">
@@ -929,6 +930,9 @@
           <p class="fine">
             © <span id="year"></span> ADHD Anywhere UK
           </p>
+
+          <!-- Added footer logo -->
+          <img src="ADHDa.png" alt="ADHD Anywhere UK logo" style="width:64px;height:auto;margin-top:10px;display:block;">
         </div>
       </div>
     </footer>
