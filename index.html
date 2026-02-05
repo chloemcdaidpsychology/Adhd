@@ -6,7 +6,7 @@
   <title>ADHD Anywhere UK | Remote Adult ADHD Assessments</title>
   <meta name="description" content="Accessible and affordable adult ADHD assessments delivered remotely by experienced HCPC-registered clinical psychologists across the UK." />
 
-  <!-- ✅ IBM PLEX SANS -->
+  <!-- IBM Plex Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,6 +14,7 @@
   <style>
     :root{
       --bg:#F6F2E9;
+      --card:#FFFFFF;
       --ink:#1E2A24;
       --muted:#4B5C52;
       --sage:#5E7F6A;
@@ -26,12 +27,16 @@
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
 
     body{
       margin:0;
       font-family:'IBM Plex Sans', -apple-system, BlinkMacSystemFont,
-                   'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background:var(--bg);
+        'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(1000px 500px at 10% 0%, rgba(94,127,106,.12), transparent 55%),
+        radial-gradient(900px 450px at 90% 10%, rgba(94,127,106,.10), transparent 55%),
+        var(--bg);
       color:var(--ink);
       line-height:1.7;
       -webkit-font-smoothing:antialiased;
@@ -43,67 +48,68 @@
 
     .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px 80px}
 
+    /* HEADER */
     header{
-      position:sticky;top:0;z-index:10;
-      background:rgba(246,242,233,.92);
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter:blur(10px);
+      background:rgba(246,242,233,.75);
       border-bottom:1px solid var(--line);
-      backdrop-filter:blur(8px);
     }
 
     .nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
       max-width:var(--max);
       margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
       padding:14px 18px;
     }
 
     .brand{
       display:flex;
-      gap:12px;
       align-items:center;
+      gap:12px;
+      min-width:220px;
     }
 
     .brand img{
-      width:44px;
-      height:44px;
+      width:44px;height:44px;
       border-radius:12px;
-      border:1px solid var(--line);
       background:white;
-    }
-
-    .brand b{
-      font-weight:700;
-      letter-spacing:-.2px;
-    }
-
-    .brand small{
-      color:var(--muted);
-      font-weight:500;
+      border:1px solid var(--line);
+      padding:6px;
     }
 
     nav ul{
       list-style:none;
       display:flex;
-      gap:12px;
+      gap:10px;
       margin:0;
       padding:0;
     }
 
     nav a{
-      padding:8px 12px;
+      padding:8px 10px;
+      border-radius:999px;
       color:var(--muted);
-      font-weight:500;
+      font-size:14px;
     }
 
     .btn{
-      padding:12px 18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 16px;
       border-radius:14px;
       border:1px solid var(--line);
-      background:white;
+      background:rgba(255,255,255,.9);
+      color:var(--sage-dark);
       font-weight:600;
-      letter-spacing:.1px;
+      cursor:pointer;
     }
 
     .btn.primary{
@@ -112,91 +118,61 @@
       border:none;
     }
 
-    section{padding:44px 0}
+    /* MOBILE NAV */
+    .nav-toggle{display:none}
+
+    /* SECTIONS */
+    section{padding:40px 0}
 
     h1{
-      font-size:clamp(32px,4vw,46px);
-      line-height:1.2;
-      letter-spacing:-.5px;
-      margin-bottom:12px;
+      font-size:clamp(30px,4.2vw,46px);
+      line-height:1.15;
+      letter-spacing:-.6px;
     }
 
-    h2{
-      font-size:26px;
-      letter-spacing:-.3px;
-      margin-bottom:16px;
-    }
+    h2{font-size:26px;letter-spacing:-.3px}
+    h3{font-size:18px;font-weight:600}
 
-    h3{
-      font-size:18px;
-      margin-bottom:8px;
-      font-weight:600;
-    }
+    p{color:var(--muted)}
 
-    p{
-      color:var(--muted);
-      font-weight:400;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:16px;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 
     .card{
-      background:white;
+      background:rgba(255,255,255,.85);
       border:1px solid var(--line);
       border-radius:var(--radius);
-      padding:20px;
+      padding:18px;
       box-shadow:var(--shadow);
     }
 
-    .list{
-      padding-left:18px;
-      color:var(--muted);
-    }
+    .list{padding-left:18px;color:var(--muted)}
 
-    .list li{
-      margin-bottom:6px;
-    }
-
+    /* CLINICIANS */
     .person{
       display:grid;
       grid-template-columns:88px 1fr;
       gap:14px;
-      align-items:start;
     }
 
     .avatar{
-      width:88px;
-      height:88px;
+      width:88px;height:88px;
       border-radius:18px;
       object-fit:cover;
       border:1px solid var(--line);
     }
 
-    .hcpc{
-      margin-top:10px;
-    }
+    .hcpc img{width:70px;margin-top:10px}
 
-    .hcpc img{
-      width:70px;
-    }
-
+    /* FOOTER */
     footer{
       border-top:1px solid var(--line);
-      padding-top:24px;
+      padding-top:26px;
       color:var(--muted);
       font-size:14px;
     }
 
+    /* RESPONSIVE */
     @media(max-width:900px){
       .grid-2,.grid-3{grid-template-columns:1fr}
       nav ul{display:none}
@@ -219,6 +195,7 @@
     <nav>
       <ul>
         <li><a href="#adhd">ADHD</a></li>
+        <li><a href="#process">Process</a></li>
         <li><a href="#clinicians">Clinicians</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -233,6 +210,16 @@
 
 <main class="wrap">
 
+<!-- HERO -->
+<section>
+  <h1>Accessible and Affordable Adult ADHD Assessments</h1>
+  <p>
+    Professional, evidence-based ADHD assessments for adults delivered remotely
+    by experienced HCPC-registered clinical psychologists.
+  </p>
+</section>
+
+<!-- ADHD FEATURES -->
 <section id="adhd">
   <h2>ADHD Features</h2>
 
@@ -274,6 +261,7 @@
   </div>
 </section>
 
+<!-- CLINICIANS -->
 <section id="clinicians">
   <h2>Meet Your Clinical Psychologists</h2>
 
@@ -284,9 +272,7 @@
         <div>
           <h3>Dr Chloe McDaid</h3>
           <p>Clinical Psychologist</p>
-          <div class="hcpc">
-            <img src="hpc.png" alt="HCPC registered">
-          </div>
+          <div class="hcpc"><img src="hpc.png" alt="HCPC registered"></div>
         </div>
       </div>
     </div>
@@ -297,15 +283,14 @@
         <div>
           <h3>Dr Naz Vazirian Zadeh</h3>
           <p>Clinical Psychologist</p>
-          <div class="hcpc">
-            <img src="hpc.png" alt="HCPC registered">
-          </div>
+          <div class="hcpc"><img src="hpc.png" alt="HCPC registered"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PRICING -->
 <section id="pricing">
   <h2>Pricing</h2>
   <div class="card">
@@ -316,6 +301,7 @@
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <h2>Contact</h2>
   <p>Email: <a href="mailto:info@adhdanywhere.co.uk">info@adhdanywhere.co.uk</a></p>
