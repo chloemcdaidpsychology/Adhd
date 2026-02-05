@@ -73,14 +73,15 @@
       min-width: 190px;
     }
 
-    /* Bigger logo + no white background box */
+    /* Header logo: allow wide logo (no square crop) */
     .brand img{
-      width: 88px;
-      height: 88px;
-      border-radius: 0;           /* remove rounded “badge” look */
-      background: transparent;    /* remove white background */
-      border: 0;                  /* remove border */
-      padding: 0;                 /* remove padding */
+      height: 60px;        /* controls size */
+      width: auto;         /* keep natural aspect ratio */
+      max-width: 170px;    /* prevents getting too huge */
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+      padding: 0;
       display: block;
     }
 
@@ -180,19 +181,19 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      padding: 28px;
+      padding: 22px; /* smaller than before */
     }
 
     h1{
       margin: 0 0 10px;
-      font-size: clamp(30px, 4.2vw, 46px);
+      font-size: clamp(28px, 3.6vw, 40px); /* smaller than before */
       letter-spacing: -0.6px;
       line-height: 1.1;
     }
     .lead{
       margin: 0 0 18px;
       color: var(--muted);
-      font-size: 16.5px;
+      font-size: 16px; /* slightly smaller */
     }
     .cta-row{
       display: flex;
