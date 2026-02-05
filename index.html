@@ -13,13 +13,12 @@
 
   <style>
     :root{
-      /* Brighter palette */
-      --bg: #FBF7EF;          /* brighter warm cream */
+      --bg: #FBF7EF;
       --card: #FFFFFF;
-      --ink: #142019;         /* slightly deeper ink */
+      --ink: #142019;
       --muted: #3F5147;
-      --sage: #3FA77A;        /* brighter accent */
-      --sage-dark: #2C7B5A;   /* stronger dark accent */
+      --sage: #3FA77A;
+      --sage-dark: #2C7B5A;
       --line: rgba(44,123,90,.18);
       --shadow: 0 12px 30px rgba(20,32,25,.08);
       --radius: 18px;
@@ -75,9 +74,9 @@
 
     /* Header logo: allow wide logo (no square crop) */
     .brand img{
-      height: 60px;        /* controls size */
-      width: auto;         /* keep natural aspect ratio */
-      max-width: 170px;    /* prevents getting too huge */
+      height: 60px;
+      width: auto;
+      max-width: 170px;
       border-radius: 0;
       background: transparent;
       border: 0;
@@ -85,7 +84,6 @@
       display: block;
     }
 
-    /* Bigger name + remove subtitle */
     .brand b{
       display:block;
       letter-spacing: -0.2px;
@@ -98,7 +96,7 @@
     nav ul{
       list-style: none;
       display: flex;
-      flex-wrap: nowrap;            /* keep Contact on same line */
+      flex-wrap: nowrap;
       gap: 8px;
       margin: 0;
       padding: 0;
@@ -181,19 +179,19 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      padding: 22px; /* smaller than before */
+      padding: 22px;
     }
 
     h1{
       margin: 0 0 10px;
-      font-size: clamp(28px, 3.6vw, 40px); /* smaller than before */
+      font-size: clamp(28px, 3.6vw, 40px);
       letter-spacing: -0.6px;
       line-height: 1.1;
     }
     .lead{
       margin: 0 0 18px;
       color: var(--muted);
-      font-size: 16px; /* slightly smaller */
+      font-size: 16px;
     }
     .cta-row{
       display: flex;
@@ -229,7 +227,6 @@
     }
     .btn.primary:hover{ box-shadow: 0 14px 28px rgba(44,123,90,.28); }
 
-    /* Make "Free consultation" fit better */
     .nav-actions .btn.primary{
       padding: 10px 14px;
       font-size: 13.5px;
@@ -347,7 +344,7 @@
     /* Clinicians */
     .person{
       display: grid;
-      grid-template-columns: 150px 1fr; /* bigger photo column */
+      grid-template-columns: 150px 1fr;
       gap: 14px;
       align-items: start;
     }
@@ -415,6 +412,25 @@
       font-size: 13px;
       color: var(--muted);
       margin: 0;
+    }
+
+    /* Form status (Formspree) */
+    .form-status{
+      display:none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.86);
+      border-radius: 14px;
+      padding: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .form-status.show{ display:block; }
+    .form-status.success{
+      border-color: rgba(63,167,122,.35);
+      box-shadow: 0 10px 22px rgba(44,123,90,.10);
+    }
+    .form-status.error{
+      border-color: rgba(255,0,0,.18);
     }
 
     /* Footer */
@@ -867,9 +883,15 @@
 
         <div class="card">
           <h3>Enquiry Form</h3>
-          <p class="fine">This is a styled HTML form. To actually receive messages, connect it to a form service or backend.</p>
+          <p class="fine">Send us a message and we’ll get back to you as soon as possible.</p>
 
-          <form action="#" method="post">
+          <!-- ✅ Formspree connected here -->
+          <form id="enquiryForm" action="https://formspree.io/f/xpqjaqjl" method="POST">
+            <!-- Optional subject line for emails in Formspree -->
+            <input type="hidden" name="_subject" value="New enquiry from ADHD Anywhere UK website" />
+            <!-- Optional: redirects to #contact on success (we also show a message) -->
+            <input type="hidden" name="_next" value="#contact" />
+
             <div class="form-row">
               <div>
                 <label for="name">Full name</label><br />
@@ -902,7 +924,9 @@
               <span class="fine">I consent to being contacted about my enquiry.</span>
             </label>
 
-            <button class="btn primary" type="submit">Send enquiry</button>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
+            <button class="btn primary" type="submit" id="formSubmitBtn">Send enquiry</button>
           </form>
         </div>
       </div>
@@ -932,14 +956,12 @@
             © <span id="year"></span> ADHD Anywhere UK
           </p>
 
-          <!-- Added footer logo -->
           <img src="ADHDa.png" alt="ADHD Anywhere UK logo" style="width:64px;height:auto;margin-top:10px;display:block;">
         </div>
       </div>
     </footer>
   </main>
 
-  <!-- Simple cookie/privacy notice (non-tracking). If you add analytics/marketing cookies, use a proper consent platform. -->
   <div class="cookie-notice" id="cookieNotice" role="dialog" aria-live="polite" aria-label="Cookie notice">
     <div class="cookie-inner">
       <p>
@@ -978,7 +1000,6 @@
         }
       });
 
-      // Close menu when clicking a link
       menu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
     })();
 
@@ -995,6 +1016,45 @@
       btn.addEventListener("click", function () {
         localStorage.setItem(key, "yes");
         notice.style.display = "none";
+      });
+    })();
+
+    // ✅ Formspree: AJAX submit for nice success/error message (still works without JS)
+    (function () {
+      const form = document.getElementById("enquiryForm");
+      const statusEl = document.getElementById("formStatus");
+      const btn = document.getElementById("formSubmitBtn");
+      if (!form || !statusEl || !btn) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        statusEl.className = "form-status show";
+        statusEl.textContent = "Sending…";
+        btn.disabled = true;
+
+        try {
+          const data = new FormData(form);
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: data,
+            headers: { "Accept": "application/json" }
+          });
+
+          if (res.ok) {
+            statusEl.className = "form-status show success";
+            statusEl.textContent = "Thanks — your message has been sent. We’ll get back to you soon.";
+            form.reset();
+          } else {
+            statusEl.className = "form-status show error";
+            statusEl.textContent = "Sorry — something went wrong. Please try again, or email us directly.";
+          }
+        } catch (err) {
+          statusEl.className = "form-status show error";
+          statusEl.textContent = "Network error — please check your connection and try again.";
+        } finally {
+          btn.disabled = false;
+        }
       });
     })();
   </script>
